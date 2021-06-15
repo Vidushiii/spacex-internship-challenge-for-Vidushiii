@@ -1,5 +1,5 @@
 import {React, useEffect, useState} from "react";
-import Crddd from "./cards/maincard";
+import Maincard from "./cards/maincard";
 import Backgrounds from "./cards/background";
 import Grid from '@material-ui/core/Grid';
 import NavBar from "./navbar";
@@ -8,16 +8,39 @@ import "./landingpage.css";
 import { BottomNavigation } from "@material-ui/core";
 import { FaRocket } from "react-icons/fa";
 import IconButton from '@material-ui/core/IconButton';
+//import { Pagination } from '@material-ui/lab';
 
 // It is the main page of the website.
 
 // Styling
 
 export default function Landingpage(){
+  const [launchData, setlaunchData] = useState([]);
+  const [status, setstatus] = useState("");
+  useEffect(()=>{
+    console.log(status);
+  },[status])
+
+  // Use effect to fetch data from API
+  useEffect(()=>{
+    fetch("https://api.spacexdata.com/v3/launches")
+    .then((res)=>res.json())
+    .then((data)=>
+      setlaunchData(data)
+    )
+    .catch(console.error);
+  }
+  ,[])
+
+  useEffect(()=>{
+    console.log(launchData)
+  },[launchData])
+
+
     return (  
         <div className= "landingpage">
             <div className="mdiv">
-            <NavBar />
+            <NavBar  setstatus = { setstatus} />
             <Backgrounds>
             <Box
           display='flex'
@@ -32,12 +55,36 @@ export default function Landingpage(){
               </Box>
             </Backgrounds>
             <div style={{padding:'20px',marginTop:'-20px'}}>
+              
               <Grid container spacing={4} >
-              <Grid container item xs={4}><Crddd/></Grid>
-              <Grid container item xs={4}><Crddd/></Grid>
-              <Grid container item xs={4}><Crddd/></Grid>
-              <Grid container item xs={4}><Crddd/></Grid>
-              </Grid>
+              {
+              (status === "success")?({
+                launchData.filter(filterdata => filterdata.launch_success === true).map(singledata => 
+                  (
+                    <Grid key = {singledata.rocket.flight_id} container item xs={3} className="launchData" >
+                      <Maincard singledata = {singledata} 
+                    /></Grid>))
+              }):
+              else if(status === "failed"){
+                launchData.filter(filterdata => filterdata.launch_success === false).map(singledata => 
+                  (
+                    <Grid key = {singledata.rocket.flight_id} container item xs={3} className="launchData" >
+                      <Maincard singledata = {singledata} 
+                    /></Grid>))
+              }else if(status === "upcoming"){
+                launchData.filter(filterdata => filterdata.upcoming === true).map(singledata => 
+                  (
+                    <Grid key = {singledata.rocket.flight_id} container item xs={3} className="launchData" >
+                      <Maincard singledata = {singledata} 
+                    /></Grid>))
+              } else() {
+                launchData.map((singledata) => (
+                  <Grid key = {singledata.rocket.flight_id} container item xs={3} className="launchData" >
+                    <Maincard singledata = {singledata} 
+                  /></Grid>))
+                }
+                }
+             </Grid>
             </div>
           </div>
           <BottomNavigation style={{backgroundColor:"#1b1b1b"}}>
