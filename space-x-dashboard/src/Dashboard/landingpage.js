@@ -16,6 +16,7 @@ import IconButton from '@material-ui/core/IconButton';
 
 export default function Landingpage(){
   const [launchData, setlaunchData] = useState([]);
+  const[filterData,setFilterdat] = useState([]);
   const [status, setstatus] = useState("");
   useEffect(()=>{
     console.log(status);
@@ -32,9 +33,22 @@ export default function Landingpage(){
   }
   ,[])
 
+ 
+
+ 
+
   useEffect(()=>{
-    console.log(launchData)
-  },[launchData])
+    if (status === "success"){
+      setFilterdat(launchData.filter(data => data.launch_success == true));
+      }else if(status === "failed"){
+        setFilterdat(launchData.filter(data => data.launch_success == false));
+      }else if(status === "upcoming"){
+        setFilterdat(launchData.filter(data => data.upcoming == true));
+      }else{
+        setFilterdat(launchData);
+      }
+    
+  },[status]);
 
 
     return (  
@@ -58,32 +72,12 @@ export default function Landingpage(){
               
               <Grid container spacing={4} >
               {
-              (status === "success")?({
-                launchData.filter(filterdata => filterdata.launch_success === true).map(singledata => 
+                filterData.map(singledata => 
                   (
                     <Grid key = {singledata.rocket.flight_id} container item xs={3} className="launchData" >
                       <Maincard singledata = {singledata} 
                     /></Grid>))
-              }):
-              else if(status === "failed"){
-                launchData.filter(filterdata => filterdata.launch_success === false).map(singledata => 
-                  (
-                    <Grid key = {singledata.rocket.flight_id} container item xs={3} className="launchData" >
-                      <Maincard singledata = {singledata} 
-                    /></Grid>))
-              }else if(status === "upcoming"){
-                launchData.filter(filterdata => filterdata.upcoming === true).map(singledata => 
-                  (
-                    <Grid key = {singledata.rocket.flight_id} container item xs={3} className="launchData" >
-                      <Maincard singledata = {singledata} 
-                    /></Grid>))
-              } else() {
-                launchData.map((singledata) => (
-                  <Grid key = {singledata.rocket.flight_id} container item xs={3} className="launchData" >
-                    <Maincard singledata = {singledata} 
-                  /></Grid>))
-                }
-                }
+              })
              </Grid>
             </div>
           </div>

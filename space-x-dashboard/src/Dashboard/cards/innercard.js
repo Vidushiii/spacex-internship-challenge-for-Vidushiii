@@ -5,18 +5,24 @@ import {Card,
   CardContent,
   Avatar,
   Typography,
+  CardMedia
  } from "@material-ui/core";
  import { FaSpaceShuttle } from "react-icons/fa";
  import Forlist from './list';
+ 
 
 const useStyles = makeStyles(( ) => ({
 avatar: {
     backgroundColor: '#8a2be2',
     transform:"rotate(-90deg)"
+  },
+  media: {
+    height: 20,
+    paddingTop: '56.25%', // 16:9
   }
 }));
 
-export default function RecipeReviewCard() {
+export default function RecipeReviewCard({singledata}) {
   const classes = useStyles();
   return (
     <Card  style={{marginLeft : "20px"}}  >
@@ -26,8 +32,13 @@ export default function RecipeReviewCard() {
             <FaSpaceShuttle/>
           </Avatar>
         }
-        title="Shrimp and Chorizo Paella"
+        title={"Mission : " + singledata.mission_name}
         subheader="September 14, 2016"
+      />
+      <CardMedia
+        className={classes.media}
+        image={singledata.links.flickr_images[1]}
+        title={singledata.mission_name}
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
