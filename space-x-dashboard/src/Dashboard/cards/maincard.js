@@ -1,5 +1,6 @@
 import {React, useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import PropTypes from "prop-types";
 import {Card,
   CardHeader,
   CardContent,
@@ -16,12 +17,14 @@ import Innercard from "./innercard";
 
 //It will have the main content card .
 
+
 // Styling of page
 const useStyles = makeStyles(( ) => ({
   card:{
    backgroundColor:'#1b1b1b',
    color:'white',
    border: '3px solid #8a2be2',
+   width : '80%',
    '&:hover': {
     backgroundColor: 'white',
     color: '#8a2be2',
@@ -43,7 +46,7 @@ const useStyles = makeStyles(( ) => ({
   }
 }));
 
-export default function RecipeReviewCard() {
+export default function MainCard({singledata}) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
@@ -63,13 +66,13 @@ export default function RecipeReviewCard() {
             <FaSpaceShuttle/>
           </Avatar>
         }
-        title="Shrimp and Chorizo Paella"
-        subheader="September 14, 2016"
-      />
+        title= {"Mission : " + singledata.mission_name}
+        subheader={ "Launch Year : "+ singledata.launch_year}  />
       <CardContent>
         <Typography variant="body2"  component="p">
-          This impressive paella is a perfect party dish and a fun meal to cook together with your
-          guests. Add 1 cup of frozen peas along with the mussels, if you like.
+        { "Location : "+ singledata.launch_site.site_name}
+        <br/>
+        {singledata.launch_success===true ? "Status : Successful" : "Status : Failed" }
         </Typography>
         <Button variant="outlined" onClick={handleClickOpen} className={classes.forbutton}>
           Know More 
@@ -77,7 +80,7 @@ export default function RecipeReviewCard() {
         <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
            <DialogTitle style={{backgroundColor:"#8a2be2"}}></DialogTitle>
            <DialogContent style={{backgroundColor:"#1b1b1b"}}>
-             <Innercard/>
+             <Innercard singledata = {singledata}/>
            </DialogContent>
            <DialogActions style={{backgroundColor:"#8a2be2"}} >
              <Button onClick={handleClose} style={{backgroundColor:"white",color:"#8a2be2"}} >
@@ -88,4 +91,8 @@ export default function RecipeReviewCard() {
       </CardContent>   
     </Card>
   );
+};
+MainCard.PropTypes = {
+  rocket_name: PropTypes.string
+
 }

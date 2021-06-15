@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function NavBar() {
+export default function NavBar({ setstatus}) {
   const classes = useStyles();
 
   return (
@@ -87,9 +87,9 @@ export default function NavBar() {
            < a href="https://www.spacex.com/"> <FaRocket style={{color:"#8a2be2"}}/> </a>
           </IconButton>
           <ButtonGroup variant="text" color="primary" >
-            <Button className={classes.forbutton} variant="outlined">Upcoming Launches</Button>
-            <Button className={classes.forbutton} variant="outlined">Successful Launches</Button>
-            <Button className={classes.forbutton} variant="outlined" >Failed Launches</Button>
+            <Button className={classes.forbutton} variant="outlined" onClick={()=>setstatus("upcoming")}>Upcoming Launches</Button>
+            <Button className={classes.forbutton} variant="outlined" onClick={()=>setstatus("success")}>Successful Launches</Button>
+            <Button className={classes.forbutton} variant="outlined"  onClick={()=>setstatus("failed")}>Failed Launches</Button>
           </ButtonGroup>
           <Typography className={classes.title} variant="h6" noWrap>
           </Typography>
