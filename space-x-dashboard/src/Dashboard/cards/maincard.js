@@ -31,6 +31,9 @@ const useStyles = makeStyles(( ) => ({
     boxShadow: '5px 10px'
 }
   },
+  subcolor:{
+    color:"white"
+  },
   avatar: {
     backgroundColor: '#8a2be2',
     transform:"rotate(-90deg)"
@@ -66,7 +69,7 @@ export default function MainCard({singledata}) {
             <FaSpaceShuttle/>
           </Avatar>
         }
-        title= {"Mission : " + singledata.mission_name}
+        title= {"Mission : " + singledata.mission_name} 
         subheader={ "Launch Year : "+ singledata.launch_year}  />
       <CardContent>
         <Typography variant="body2"  component="p">
@@ -77,6 +80,7 @@ export default function MainCard({singledata}) {
         <Button variant="outlined" onClick={handleClickOpen} className={classes.forbutton}>
           Know More 
         </Button>
+        { /* It will pop up after we'll click on "know more" button and show the content of inner card */}
         <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" >
            <DialogTitle style={{width:"400px"}}></DialogTitle>
            <DialogContent style={{backgroundColor:"#1b1b1b"}}>
@@ -92,6 +96,7 @@ export default function MainCard({singledata}) {
     </Card>
   );
 };
+
 MainCard.PropTypes = {
   rocket_name: PropTypes.string
 
