@@ -7,6 +7,7 @@ import {Card,
   Avatar,
   Button,
   Typography,
+  Divider
  } from "@material-ui/core";
  import { FaSpaceShuttle } from "react-icons/fa";
  import Dialog from '@material-ui/core/Dialog';
@@ -23,13 +24,15 @@ const useStyles = makeStyles(( ) => ({
   card:{
    backgroundColor:'#1b1b1b',
    color:'white',
-   border: '3px solid #8a2be2',
    width : '80%',
    '&:hover': {
     backgroundColor: 'white',
     color: '#8a2be2',
     boxShadow: '5px 10px'
 }
+  },
+  subcolor:{
+    color:"white"
   },
   avatar: {
     backgroundColor: '#8a2be2',
@@ -66,24 +69,25 @@ export default function MainCard({singledata}) {
             <FaSpaceShuttle/>
           </Avatar>
         }
-        title= {"Mission : " + singledata.mission_name}
+        title= {"Mission : " + singledata.mission_name} 
         subheader={ "Launch Year : "+ singledata.launch_year}  />
       <CardContent>
         <Typography variant="body2"  component="p">
-        { "Location : "+ singledata.launch_site.site_name}
-        <br/>
+        { "Site Name : "+ singledata.launch_site.site_name}
+        <br/><Divider />
         {singledata.launch_success===true ? "Status : Successful" : "Status : Failed" }
         </Typography>
         <Button variant="outlined" onClick={handleClickOpen} className={classes.forbutton}>
           Know More 
         </Button>
-        <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-           <DialogTitle style={{backgroundColor:"#8a2be2"}}></DialogTitle>
+        { /* It will pop up after we'll click on "know more" button and show the content of inner card */}
+        <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" >
+           <DialogTitle style={{width:"400px"}}></DialogTitle>
            <DialogContent style={{backgroundColor:"#1b1b1b"}}>
              <Innercard singledata = {singledata}/>
            </DialogContent>
-           <DialogActions style={{backgroundColor:"#8a2be2"}} >
-             <Button onClick={handleClose} style={{backgroundColor:"white",color:"#8a2be2"}} >
+           <DialogActions >
+             <Button onClick={handleClose} style={{backgroundColor:"#8a2be2",color:"white"}} >
                BACK
              </Button>
            </DialogActions>
@@ -92,6 +96,7 @@ export default function MainCard({singledata}) {
     </Card>
   );
 };
+
 MainCard.PropTypes = {
   rocket_name: PropTypes.string
 

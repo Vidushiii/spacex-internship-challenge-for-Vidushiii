@@ -5,13 +5,18 @@ import {Card,
   CardContent,
   Avatar,
   Typography,
-  CardMedia
+  CardMedia,
+  CardActions,
+  Button
  } from "@material-ui/core";
  import { FaSpaceShuttle } from "react-icons/fa";
  import Forlist from './list';
  
 
 const useStyles = makeStyles(( ) => ({
+  card:{
+    minWidth: 200
+  },
 avatar: {
     backgroundColor: '#8a2be2',
     transform:"rotate(-90deg)"
@@ -25,7 +30,7 @@ avatar: {
 export default function RecipeReviewCard({singledata}) {
   const classes = useStyles();
   return (
-    <Card  style={{marginLeft : "20px"}}  >
+    <Card  style={{marginLeft : "20px"}} className={classes.card} >
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
@@ -42,11 +47,21 @@ export default function RecipeReviewCard({singledata}) {
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          This impressive paella is a perfect party dish and a fun meal to cook together with your
-          guests. Add 1 cup of frozen peas along with the mussels, if you like.
+        {singledata.details}
+        <CardActions>
+        <a href={singledata.links.article_link}><Button size="small" color="primary">
+          Know More !!
+        </Button></a>
+        </CardActions>
         </Typography>
-        <Forlist/>
+        <Forlist singledata= {singledata}/>
       </CardContent> 
+      <CardActions>
+        <a href={singledata.links.video_link}><Button size="small" color="primary">
+          Watch
+        </Button>
+        </a>
+      </CardActions>
     </Card>
   );
 }

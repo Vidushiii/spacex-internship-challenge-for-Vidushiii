@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useCallback} from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -71,8 +71,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function NavBar({ setstatus}) {
+export default function NavBar({ setstatus,getsearch,showsearch}) {
   const classes = useStyles();
+
+  const handlechange = useCallback( e =>{
+    const search = e.target.value;
+    console.log(search);
+    showsearch(search)
+  },[showsearch])
 
   return (
     <div className={classes.root} >
@@ -87,9 +93,11 @@ export default function NavBar({ setstatus}) {
            < a href="https://www.spacex.com/"> <FaRocket style={{color:"#8a2be2"}}/> </a>
           </IconButton>
           <ButtonGroup variant="text" color="primary" >
+          <Button className={classes.forbutton} variant="outlined"  onClick={()=>setstatus("")}>All</Button>
             <Button className={classes.forbutton} variant="outlined" onClick={()=>setstatus("upcoming")}>Upcoming Launches</Button>
             <Button className={classes.forbutton} variant="outlined" onClick={()=>setstatus("success")}>Successful Launches</Button>
             <Button className={classes.forbutton} variant="outlined"  onClick={()=>setstatus("failed")}>Failed Launches</Button>
+            
           </ButtonGroup>
           <Typography className={classes.title} variant="h6" noWrap>
           </Typography>
@@ -104,6 +112,9 @@ export default function NavBar({ setstatus}) {
                 input: classes.inputInput,
               }}
               inputProps={{ 'aria-label': 'search' }}
+              onChange = {e=>handlechange(e)}
+              value={getsearch}
+            
             />
           </div>
         </Toolbar>
