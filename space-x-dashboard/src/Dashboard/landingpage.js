@@ -8,11 +8,8 @@ import "./landingpage.css";
 import { BottomNavigation } from "@material-ui/core";
 import { FaRocket } from "react-icons/fa";
 import IconButton from '@material-ui/core/IconButton';
-//import { Pagination } from '@material-ui/lab';
 
 // It is the main page of the website.
-
-// Styling
 
 export default function Landingpage(){
   const [launchData, setlaunchData] = useState([]);
@@ -26,8 +23,11 @@ export default function Landingpage(){
   useEffect(()=>{
     fetch("https://api.spacexdata.com/v3/launches")
     .then((res)=>res.json())
-    .then((data)=>
-      setlaunchData(data)
+    .then((data)=>{
+      setlaunchData(data),
+      setFilterdat(data);
+      console.log(data);
+    }
     )
     .catch(console.error);
   }
@@ -50,6 +50,8 @@ export default function Landingpage(){
     
   },[status]);
 
+  
+
 
     return (  
         <div className= "landingpage">
@@ -69,7 +71,7 @@ export default function Landingpage(){
               </Box>
             </Backgrounds>
             <div style={{padding:'20px',marginTop:'-20px'}}>
-              
+           
               <Grid container spacing={4} >
               {
                 filterData.map(singledata => 
