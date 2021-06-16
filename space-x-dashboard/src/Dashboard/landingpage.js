@@ -114,7 +114,7 @@ export default function Landingpage(){
                     <Grid container item xs={12} justifyContent = {"center"}>
                       <Card style={{marginLeft:"45%" , backgroundColor:"black", color:"white" }}>
                       <FaSearch style={{color:"#8a2be2",width:"100px",height:"100px"}}/>
-                       <h2>Not found!!</h2> 
+                       <h2>No Results!!</h2> 
                       </Card>
                      </Grid>
               } 
