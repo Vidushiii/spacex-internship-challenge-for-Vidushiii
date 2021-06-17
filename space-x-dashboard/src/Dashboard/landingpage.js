@@ -1,16 +1,12 @@
 import {React, useEffect, useState} from "react";
-import Maincard from "./cards/maincard";
-import Backgrounds from "./cards/background";
-import Grid from '@material-ui/core/Grid';
 import NavBar from "./navbar";
-import { Box, Card} from "@material-ui/core";
 import "./landingpage.css";
-import { BottomNavigation } from "@material-ui/core";
+import { BottomNavigation, CircularProgress } from "@material-ui/core";
 import { FaRocket, FaSearch } from "react-icons/fa";
 import IconButton from '@material-ui/core/IconButton';
+import Maincard from "./cards/listcard";
 
 // It is the main page of the website.
-
 
 export default function Landingpage(){
   
@@ -85,48 +81,23 @@ export default function Landingpage(){
         <div className= "landingpage">
             <div className="mdiv">
             <NavBar  setstatus = { setstatus } getsearch={getsearch}  showsearch={showsearch} />
-            <Backgrounds>
-            <Box
-          display='flex'
-          flexDirection='column'
-          height='90vh'
-          maxWidth='60%'
-          justifyContent='center'
-        >
-            <div className="heading">
-              <h2>SpaceX Launch</h2>
-              <p>Everything about the launch!!!</p></div>
-              </Box>
-            </Backgrounds>
-            <div style={{padding:'20px',backgroundColor:"black"}}>
-            {loading ? <Grid container item xs={12} justifyContent = {"center"}>
-                      <Card style={{marginLeft:"45%" , backgroundColor:"black", color:"white" }}>
-                      <FaSearch style={{color:"#8a2be2",width:"100px",height:"100px"}}/>
+            <div style={{padding:'20px',backgroundColor:"white"}}>
+             {loading ? <div style={{backgroundColor:"white", color:"#8a2be2", padding:"12%", marginLeft:"30%",marginBottom:"5%" }}>
+                      <CircularProgress style={{color:"#8a2be2"}}/>
                        <h2>Loading!!</h2> 
-                      </Card>
-                     </Grid> : 
-            <Grid container spacing={4} >
-              { searchedData.length > 0 ? searchedData.map(singledata => 
-                  (
-                    <Grid key = {singledata.rocket.flight_id} container item xs={3} className="launchData" >
-                      <Maincard singledata = {singledata} 
-                    /></Grid>)) :
-                    <Grid container item xs={12} justifyContent = {"center"}>
-                      <Card style={{marginLeft:"45%" , backgroundColor:"black", color:"white" }}>
-                      <FaSearch style={{color:"#8a2be2",width:"100px",height:"100px"}}/>
+                      </div>: searchedData.length > 0 ? <div >
+                      <Maincard searchedData = {searchedData} /> </div>  :
+                      <div style={{backgroundColor:"white", color:"#8a2be2", padding:"12%", marginLeft:"30%" }}>
+                     <FaSearch style={{color:"#8a2be2",width:"100px",height:"100px"}}/>
                        <h2>No Results!!</h2> 
-                      </Card>
-                     </Grid>
-              } 
-             </Grid>}
+                      </div>}
             </div>
           </div>
-          <BottomNavigation style={{backgroundColor:"#1b1b1b"}}>
+          <BottomNavigation style={{backgroundColor:"white"}}>
           <IconButton
             edge="start"
             color="inherit"
-            aria-label="open drawer"
-          >
+            aria-label="open drawer">
            < a href="https://www.spacex.com/"> <FaRocket style={{color:"#8a2be2"}}/>SpaceX</a>
           </IconButton>
           </BottomNavigation>

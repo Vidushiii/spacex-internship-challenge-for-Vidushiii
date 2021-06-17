@@ -42,7 +42,7 @@ export default function RecipeReviewCard({singledata}) {
       />
       <CardMedia
         className={classes.media}
-        image={singledata.links.flickr_images[1]}
+        image={ singledata.links.flickr_images.length > 0 ? singledata.links.flickr_images[0] : "https://www.businessinsider.in/photo/82347519/a-huge-rocket-from-chinas-space-station-launch-could-fall-back-to-earth-totally-uncontrolled.jpg?imgsize=420349"}
         title={singledata.mission_name}
       />
       <CardContent>
