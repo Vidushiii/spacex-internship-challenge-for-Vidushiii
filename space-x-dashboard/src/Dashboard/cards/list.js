@@ -1,11 +1,6 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
- import List from '@material-ui/core/List';
- import ListItem from '@material-ui/core/ListItem';
- import ListItemText from '@material-ui/core/ListItemText';
- import { ListItemIcon } from '@material-ui/core';
- import Divider from '@material-ui/core/Divider';
- 
+import { makeStyles, List, ListItem, ListItemText,ListItemIcon, Divider} from '@material-ui/core';
+
 // It have the list component for the popop card.
 
 // styling
@@ -17,6 +12,7 @@ import { makeStyles } from '@material-ui/core/styles';
     },
   }));
 
+// This function will return the content that we want on screen inside the popup
 export default function Forlist({singledata}){
     const classes = useStyles();
     return (
@@ -30,9 +26,7 @@ export default function Forlist({singledata}){
       <Listschema L1="Manufacturer : " L2={singledata.rocket.second_stage.payloads[0].manufacturer}/>
       <Listschema L1="Orbit : " L2={singledata.rocket.second_stage.payloads[0].orbit}/>
      </List>
-);
-}
-
+);}
 function Listschema({L1,L2}){
   return( 
      <>

@@ -1,12 +1,14 @@
-import React,{useCallback} from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
-import { makeStyles } from '@material-ui/core/styles';
+import {React,useCallback} from 'react';
+import {AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  InputBase, 
+  makeStyles,
+  Button,
+  Select, 
+  MenuItem} from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
-import { Button ,ButtonGroup } from '@material-ui/core';
 import { FaRocket } from "react-icons/fa";
 
 // This file have the top navigation bar's content.
@@ -17,21 +19,28 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     width: '100%',
     height: '100%',
+    borderBottom: "5px solid #8a2be2"
   },
   title: {
     flexGrow: 1,
     display: 'none',
+    color:"#8a2be2",
+    marginLeft:"35%",
+    fontSize:"1.70rem",
     [theme.breakpoints.up('sm')]: {
       display: 'block',
     },
+  },
+  dropdown:{
+    backgroundColor:"#8a2be2",
   },
   forbutton : {
     //background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
     borderRadius: 3,
     border: 0,
     color:'#8a2be2',
-    height: 48,
-    fontSize: '1.24rem'
+    height: 25,
+    fontSize: '0.84rem'
   },
   search: {
     position: 'relative',
@@ -82,24 +91,16 @@ export default function NavBar({ setstatus,getsearch,showsearch}) {
 
   return (
     <div className={classes.root} >
-      <AppBar position="static" style={{backgroundColor:"#1b1b1b"}}>
+      <AppBar position="static" style={{backgroundColor:"white"}}>
         <Toolbar>
           <IconButton
             edge="start"
             className={classes.menuButton}
             color="inherit"
-            aria-label="open drawer"
-          >
+            aria-label="open drawer">
            < a href="https://www.spacex.com/"> <FaRocket style={{color:"#8a2be2"}}/> </a>
           </IconButton>
-          <ButtonGroup variant="text" color="primary" >
-          <Button className={classes.forbutton} variant="outlined"  onClick={()=>setstatus("")}>All</Button>
-            <Button className={classes.forbutton} variant="outlined" onClick={()=>setstatus("upcoming")}>Upcoming Launches</Button>
-            <Button className={classes.forbutton} variant="outlined" onClick={()=>setstatus("success")}>Successful Launches</Button>
-            <Button className={classes.forbutton} variant="outlined"  onClick={()=>setstatus("failed")}>Failed Launches</Button>
-            
-          </ButtonGroup>
-          <Typography className={classes.title} variant="h6" noWrap>
+          <Typography className={classes.title} variant="h6" noWrap > Space-X Launch
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -113,12 +114,18 @@ export default function NavBar({ setstatus,getsearch,showsearch}) {
               }}
               inputProps={{ 'aria-label': 'search' }}
               onChange = {e=>handlechange(e)}
-              value={getsearch}
-            
+              value={getsearch} 
             />
+            <Select className={classes.dropdown}>
+                <MenuItem><Button className={classes.forbutton} variant="outlined"  onClick={()=>setstatus("")}>All</Button></MenuItem>
+                <MenuItem><Button className={classes.forbutton} variant="outlined" onClick={()=>setstatus("upcoming")}>Upcoming Launches</Button></MenuItem>
+                <MenuItem><Button className={classes.forbutton} variant="outlined" onClick={()=>setstatus("success")}>Successful Launches</Button></MenuItem>
+                <MenuItem><Button className={classes.forbutton} variant="outlined"  onClick={()=>setstatus("failed")}>Failed Launches</Button></MenuItem>
+            </Select>
           </div>
         </Toolbar>
       </AppBar>
     </div>
   );
 }
+
